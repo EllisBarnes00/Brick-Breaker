@@ -55,9 +55,12 @@ void gameLoop() {
 			// Check if the window is closed by the top right button
 			if(event_handler.type == SDL_QUIT) {
 				is_running = false;
-			} 
-			if(event_handler.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
-				is_running = false;
+			} else if(event_handler.type == SDL_KEYDOWN) {
+				switch(event_handler.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						is_running = false;
+					break;
+				}
 			}
 		}
 
