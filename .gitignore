@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 
 # Executable
-Brick Breaker
+BrickBreaker
+.vscode/*
