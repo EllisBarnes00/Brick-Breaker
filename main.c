@@ -1,6 +1,14 @@
-#include <stdio.h>
+#include "window.h"
 
-int main() {
-	printf("Hello World.\n");
+int main(int argc, char* args[]) {
+	if(init()) {
+		// load assets
+		loadMedia();
+		
+		// loop the game
+		gameLoop();
+	}
+
+	cleanup();
 	return 0;
 }
