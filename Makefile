@@ -1,5 +1,5 @@
 CC := gcc
-OBJS := main.c window.c player.c
+OBJS := main.c window.c player.c input.c
 COMPILER_FLAGS := -Wall -Wextra -pedantic -std=c11
 LINKER_FLAGS := -lSDL2
 OBJ_NAME := "BrickBreaker"

@@ -1,5 +1,5 @@
 #include "window.h"
-#include "gamestate.h"
+#include "input.h"
 #include "player.h"
 
 /* Renderering related globals */
@@ -12,8 +12,6 @@ int window_height = 480;
 
 /* Game-state related globals */
 bool is_running = false;
-gamestate_t gamestate;
-input_t input = {0};
 
 bool init() {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -64,30 +62,12 @@ void gameLoop() {
 		SDL_GetWindowSize(gWindow, &window_width, &window_height);
 
 		// Check for key presses and record them
-		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-		input.up 		= currentKeyStates[SDL_SCANCODE_UP];
-		input.down		= currentKeyStates[SDL_SCANCODE_DOWN];
-		input.left		= currentKeyStates[SDL_SCANCODE_LEFT];
-		input.right		= currentKeyStates[SDL_SCANCODE_RIGHT];
-
-
-		// Start to modify the gamestate
-		if(input.left) {
-			// gamestate.x -= .1;
-			player_paddle.x -= 1;
-		}
-
-		if(input.right) {
-			// gamestate.x += .1;
-			player_paddle.x += 1;
-		}
+		pollKeyPresses();
 		
 		// Clear the screen
 		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(gRenderer);
 
-
-		// TODO: Draw a rectangle that moves left and right
 		update_player();
 		
 		// Update the screen

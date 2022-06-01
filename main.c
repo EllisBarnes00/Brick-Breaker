@@ -1,6 +1,6 @@
 #include "window.h"
 
-int main(int argc, char* args[]) {
+int main() {
 	if(init()) {
 		// load assets
 		loadMedia();
