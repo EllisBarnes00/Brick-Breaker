@@ -1,5 +1,6 @@
 #include "window.h"
 #include "gamestate.h"
+#include "player.h"
 
 /* Renderering related globals */
 SDL_Window* gWindow = NULL;
@@ -20,7 +21,7 @@ bool init() {
 		return false;
 	} else {
 		// Create the window
-		gWindow = SDL_CreateWindow("Brick Breaker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_RESIZABLE);
+		gWindow = SDL_CreateWindow("Brick Breaker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, 0);
 		if(gWindow == NULL) {
 			printf("Window could not be created. SDL_Error: %s\n", SDL_GetError());
 			return false;
@@ -32,7 +33,7 @@ bool init() {
 			printf("Renderer could not be created. SDL_Error: %s\n", SDL_GetError());
 			return false;
 		}
-		SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(gRenderer);
 		SDL_RenderPresent(gRenderer);
 
@@ -45,13 +46,14 @@ bool init() {
 }
 
 bool loadMedia() {
+	init_player();
 	return true;
 }
 
 void gameLoop() {
 	SDL_Event event_handler;
 	while(is_running) {
-		while(SDL_PollEvent(&event_handler) != 0) {
+		while(SDL_PollEvent(&event_handler)) {
 			// Check if the window is closed by the top right button
 			if(event_handler.type == SDL_QUIT) {
 				is_running = false;
@@ -71,26 +73,23 @@ void gameLoop() {
 
 		// Start to modify the gamestate
 		if(input.left) {
-			gamestate.x -= .1;
+			// gamestate.x -= .1;
+			player_paddle.x -= 1;
 		}
+
 		if(input.right) {
-			gamestate.x += .1;
-		}
-
-		// TODO: Figure something out for the up and down arrows
-		if(input.up) {
-
-		}
-		if(input.down) {
-			
+			// gamestate.x += .1;
+			player_paddle.x += 1;
 		}
 		
-		// TODO: Draw a rectangle that moves left and right
-
 		// Clear the screen
-		SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(gRenderer);
 
+
+		// TODO: Draw a rectangle that moves left and right
+		update_player();
+		
 		// Update the screen
 		SDL_RenderPresent(gRenderer);
 	}
