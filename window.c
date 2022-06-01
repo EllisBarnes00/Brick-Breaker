@@ -19,7 +19,7 @@ bool init() {
 		return false;
 	} else {
 		// Create the window
-		gWindow = SDL_CreateWindow("Brick Breaker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, 0);
+		gWindow = SDL_CreateWindow("Brick Breaker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_BORDERLESS);
 		if(gWindow == NULL) {
 			printf("Window could not be created. SDL_Error: %s\n", SDL_GetError());
 			return false;
@@ -55,11 +55,14 @@ void gameLoop() {
 			// Check if the window is closed by the top right button
 			if(event_handler.type == SDL_QUIT) {
 				is_running = false;
+			} 
+			if(event_handler.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+				is_running = false;
 			}
 		}
 
 		// Check for window resizing
-		SDL_GetWindowSize(gWindow, &window_width, &window_height);
+		//SDL_GetWindowSize(gWindow, &window_width, &window_height);
 
 		// Check for key presses and record them
 		pollKeyPresses();
@@ -68,6 +71,7 @@ void gameLoop() {
 		SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
 		SDL_RenderClear(gRenderer);
 
+		// Update the player and other entities on the screen
 		update_player();
 		
 		// Update the screen
