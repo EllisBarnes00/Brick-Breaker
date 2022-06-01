@@ -1,5 +1,6 @@
 #include "input.h"
 #include "player.h"
+#include "window.h"
 
 input_t input = {0};
 

@@ -14,4 +14,12 @@ bool init_player() {
 void update_player() {
 	SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(gRenderer, &player_paddle);
+
+	// Check if the player is touching the edges
+	if(player_paddle.x <= 0) {
+		player_paddle.x = 0;
+	}
+	if (player_paddle.x >= 640 - player_paddle.w) {
+		player_paddle.x = 640 - player_paddle.w;
+	}
 }
