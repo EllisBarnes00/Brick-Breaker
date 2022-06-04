@@ -1,6 +1,8 @@
 #include "player.h"
 #include "window.h"
 
+SDL_Rect player_paddle;
+
 bool init_player() {
 	player_paddle.w = 100;
 	player_paddle.h = 25;

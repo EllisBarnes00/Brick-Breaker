@@ -11,10 +11,9 @@ typedef struct {
 } input_t;
 
 // All the key states
-const Uint8* currentKeyStates;
+extern const Uint8* currentKeyStates;
 
 // Poll the input for the player
 void pollKeyPresses();
-
 
 #endif // INPUT_H

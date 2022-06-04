@@ -2,6 +2,7 @@
 #include "player.h"
 #include "window.h"
 
+const Uint8* currentKeyStates;
 input_t input = {0};
 
 void pollKeyPresses() {
